@@ -38,23 +38,6 @@ jobs:
           name: Backend tests
           command: npm run ci:backend:test
       - run:
-          name: Run Front End Tests
-          command: npm run ci:frontend:test
-      - run:
-          name: 'E2E: Package'
-          command: npm run ci:e2e:package
-      - run:
-          name: 'E2E: Prepare'
-          command: npm run ci:e2e:prepare
-      - run:
-          name: 'E2E: Run'
-          command: npm run ci:e2e:run
-          environment:
-            CYPRESS_ENABLE_RECORD: false
-      - run:
-          name: 'E2E: Teardown'
-          command: npm run ci:e2e:teardown
-      - run:
           name: Build Spring Boot Docker Image
           command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
       - run:
