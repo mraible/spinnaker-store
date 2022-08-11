@@ -3,7 +3,7 @@ jobs:
   build:
     environment:
       DOCKERHUB_USER: mraible
-      IMAGE_NAME: ${DOCKERHUB_USER}/store
+      IMAGE_NAME: mraible/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -35,13 +35,13 @@ jobs:
       - run:
           name: Give Executable Power
           command: 'chmod +x gradlew'
-      #- run:
-      #    name: Backend tests
-      #   command: npm run ci:backend:test
       - run:
-          name: Build and publish Docker image
+          name: Backend tests
+          command: npm run ci:backend:test
+      - run:
+          name: Build and Publish Docker Image
           command: |
             ./gradlew -Pprod bootJar jib \
-                -Djib.to.image=$IMAGE_NAME \
-                -Djib.to.auth.username=$DOCKERHUB_USER \
-                -Djib.to.auth.password=$DOCKERHUB_PASS
+              -Djib.to.image=$IMAGE_NAME \
+              -Djib.to.auth.username=$DOCKERHUB_USER \
+              -Djib.to.auth.password=$DOCKERHUB_PASS
