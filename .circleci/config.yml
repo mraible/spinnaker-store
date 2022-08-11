@@ -3,7 +3,7 @@ jobs:
   build:
     environment:
       DOCKERHUB_USER: mraible
-      IMAGE_NAME: $DOCKERHUB_USER/store
+      IMAGE_NAME: mraible/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -35,9 +35,9 @@ jobs:
       - run:
           name: Give Executable Power
           command: 'chmod +x gradlew'
-      - run:
-          name: Backend tests
-          command: npm run ci:backend:test
+      #- run:
+      #    name: Backend tests
+      #   command: npm run ci:backend:test
       - run:
           name: Build and publish Docker image
           command: |
