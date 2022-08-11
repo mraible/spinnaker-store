@@ -2,7 +2,8 @@ version: 2.1
 jobs:
   build:
     environment:
-      IMAGE_NAME: mraible/store
+      DOCKERHUB_USER: mraible
+      IMAGE_NAME: $DOCKERHUB_USER/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
@@ -38,10 +39,9 @@ jobs:
           name: Backend tests
           command: npm run ci:backend:test
       - run:
-          name: Build Spring Boot Docker Image
-          command: ./gradlew -Pprod bootBuildImage --imageName=$IMAGE_NAME
-      - run:
-          name: Publish Docker Image
+          name: Build and publish Docker image
           command: |
-            docker login -u mraible -p $DOCKERHUB_PASS
-            docker push $IMAGE_NAME
+            ./gradlew -Pprod bootJar jib \
+                -Djib.to.image=$IMAGE_NAME \
+                -Djib.to.auth.username=$DOCKERHUB_USER \
+                -Djib.to.auth.password=$DOCKERHUB_PASS
