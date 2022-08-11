@@ -39,7 +39,7 @@ jobs:
           command: npm run ci:backend:test
       - run:
           name: Build Spring Boot Docker Image
-          command: ./gradlew bootBuildImage --imageName=$IMAGE_NAME
+          command: ./gradlew -Pprod bootBuildImage --imageName=$IMAGE_NAME
       - run:
           name: Publish Docker Image
           command: |
