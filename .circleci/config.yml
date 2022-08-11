@@ -3,7 +3,7 @@ jobs:
   build:
     environment:
       DOCKERHUB_USER: mraible
-      IMAGE_NAME: mraible/store
+      IMAGE_NAME: ${DOCKERHUB_USER}/store
     machine:
       image: ubuntu-2004:current
     resource_class: large
